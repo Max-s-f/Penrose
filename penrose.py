@@ -109,7 +109,10 @@ def draw(triangles, colours_input, cr):
             cr.line_to(B.real, B.imag)
             cr.line_to(C.real, C.imag)
             cr.close_path()
-    cr.set_source_rgb(colours[colour_choices[1]][0], colours[colour_choices[1]][1], colours[colour_choices[1]][2])
+    if (colour_choices[1].lower() == "random"):
+        cr.set_source_rgb((r.randint(1, 256))/256, (r.randint(1,256)/256), (r.randint(1,256)/256))
+    else:
+        cr.set_source_rgb(colours[colour_choices[1]][0], colours[colour_choices[1]][1], colours[colour_choices[1]][2])
     cr.fill()
 
     for thicc, A, B, C in triangles:
@@ -118,7 +121,10 @@ def draw(triangles, colours_input, cr):
             cr.line_to(B.real, B.imag)
             cr.line_to(C.real, C.imag)
             cr.close_path()
-    cr.set_source_rgb(colours[colour_choices[0]][0], colours[colour_choices[0]][1], colours[colour_choices[0]][2])
+    if (colour_choices[0].lower() == "random"):
+        cr.set_source_rgb((r.randint(1, 256))/256, (r.randint(1,256)/256), (r.randint(1,256)/256))
+    else:
+        cr.set_source_rgb(colours[colour_choices[0]][0], colours[colour_choices[0]][1], colours[colour_choices[0]][2])
     cr.fill()
 
     thicc, A, B, C = triangles[0]
