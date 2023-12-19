@@ -2,6 +2,7 @@ import math
 import cairo
 import cmath
 import random as r
+from penrose import draw
 
 goldenRatio = (1 + (5 ** 0.5)) / 2
 
@@ -80,59 +81,13 @@ def split(triangles):
             result += [(1, B, P, A), (0, P, C, B)]
     return result
 
-
-
-""" 
-Method to draw the triangles
-
-"""
-def draw(triangles, colours_input, cr):
-    print("COLOURS", colours[colour_choices[1]][0])
-
-    # Basically just outline the edges then fill with appropriate colour option
-    for dart, A, B, C in triangles:
-        if not dart:
-            cr.move_to(A.real, A.imag)
-            cr.line_to(B.real, B.imag)
-            cr.line_to(C.real, C.imag)
-            cr.close_path()
-    if (colour_choices[1].lower() == "random"):
-        cr.set_source_rgb((r.randint(1, 256))/256, (r.randint(1,256)/256), (r.randint(1,256)/256))
-    else:
-        cr.set_source_rgb(colours[colour_choices[1]][0], colours[colour_choices[1]][1], colours[colour_choices[1]][2])
-    cr.fill()
-
-    for dart, A, B, C in triangles:
-        if dart:
-            cr.move_to(A.real, A.imag)
-            cr.line_to(B.real, B.imag)
-            cr.line_to(C.real, C.imag)
-            cr.close_path()
-    if (colour_choices[0].lower() == "random"):
-        cr.set_source_rgb((r.randint(1, 256))/256, (r.randint(1,256)/256), (r.randint(1,256)/256))
-    else:
-        cr.set_source_rgb(colours[colour_choices[0]][0], colours[colour_choices[0]][1], colours[colour_choices[0]][2])
-    cr.fill()
-
-    dart, A, B, C = triangles[0]
-    cr.set_line_width(abs(B - C) / (5 * 2))
-    cr.set_line_join(cairo.LINE_JOIN_ROUND)
-
-    # Draw outlines
-    for dart, A, B, C in triangles:
-        cr.move_to(C.real, C.imag)
-        cr.line_to(A.real, A.imag)
-        cr.line_to(B.real, B.imag)
-    cr.set_source_rgb(colours[colour_choices[2]][0], colours[colour_choices[2]][1], colours[colour_choices[2]][2])
-    cr.stroke()
-
 def main():
     get_user_input()
 
     # set up canvas
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1080, 1080)
     cr = cairo.Context(surface)
-    # Chaange divisor to 1 for zoom in
+
     cr.scale(1080 / zoom, 1080 / zoom)
     cr.translate(0.5 * zoom, 0.5 * zoom)
 
