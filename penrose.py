@@ -167,4 +167,5 @@ def main():
     surface.write_to_png(filename)
 
 
-main()
+if __name__ == "__main__":
+    main()
